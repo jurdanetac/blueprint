@@ -1,7 +1,13 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %} Hello templates {% endblock %}
 
 {% block body %}
-<h1>Hello templates</h1>
+  <h1>Templates</h1>
+  <time id="live-clock"></time>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'base/js/live_clock.js' %}"></script>
 {% endblock %}
