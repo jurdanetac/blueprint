@@ -4,39 +4,39 @@
 {% block title %} Hello templates {% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'base/css/index.css' %}">
+  <link rel="stylesheet" href="{% static 'base/css/index.css' %}">
 {% endblock %}
 
 {% block body %}
-<header class="text-center">
-  <h1>Templates</h1>
-  <time id="live-clock"></time>
-</header>
+  <header class="text-center">
+    <h1>Templates</h1>
+    <time id="live-clock"></time>
+  </header>
 
-<div class="flex">
-  <aside id="backlog">
-    <h3>Backlog</h3>
-  </aside>
-  
-  <main id="dashboard" class="flex-grow">
-    <h2>Dashboard</h2>
+  <div class="flex">
+    <aside id="backlog">
+      <h3>Backlog</h3>
+    </aside>
+
+    <main id="dashboard" class="flex-grow">
+      <h2>Dashboard</h2>
 
     <!-- #todo-list -->
-    {% include 'base/partials/todo_list.html' with todos=todos %}
+      {% include 'base/partials/todo_list.html' with todos=todos %}
 
-    <form hx-post="{% url 'index'  %}" hx-target="#todo-list" hx-swap="outerHTML" hx-on::after-request="this.reset()">
-      {% csrf_token %}
-      {{ todo_form }}
-      <input type="submit" />
-    </form>
-  </main>
-  
-  <aside id="upcoming">
-    <h3>Upcoming</h3>
-  </aside>
-</div>
+      <form hx-post="{% url 'index'  %}" hx-target="#todo-list" hx-swap="outerHTML" hx-on::after-request="this.reset()">
+        {% csrf_token %}
+        {{ todo_form }}
+        <input type="submit" />
+      </form>
+    </main>
+
+    <aside id="upcoming">
+      <h3>Upcoming</h3>
+    </aside>
+  </div>
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'base/js/live_clock.js' %}"></script>
+  <script src="{% static 'base/js/live_clock.js' %}"></script>
 {% endblock %}
