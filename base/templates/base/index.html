@@ -21,11 +21,7 @@
   <main id="dashboard" class="flex-grow">
     <h2>Dashboard</h2>
 
-    <ul>
-      {% for todo in todos %}
-        {% include 'base/partials/todo_item.html' with todo=todo %}
-      {% endfor %}
-    </ul>
+    {% include 'base/partials/todo_list.html' with todos=todos %}
 
     <form action="{% url 'index'  %}" method="POST">
       {% csrf_token %}
