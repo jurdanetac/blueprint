@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "django_htmx",
     "base.apps.BaseConfig",
     "django.contrib.admin",
     "django.contrib.auth",

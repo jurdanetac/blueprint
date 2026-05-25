@@ -21,9 +21,10 @@
   <main id="dashboard" class="flex-grow">
     <h2>Dashboard</h2>
 
+    <!-- #todo-list -->
     {% include 'base/partials/todo_list.html' with todos=todos %}
 
-    <form action="{% url 'index'  %}" method="POST">
+    <form hx-post="{% url 'index'  %}" hx-target="#todo-list" hx-swap="outerHTML" hx-on::after-request="this.reset()">
       {% csrf_token %}
       {{ todo_form }}
       <input type="submit" />

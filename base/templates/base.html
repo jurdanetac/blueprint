@@ -1,4 +1,5 @@
 {% load static %}
+{% load django_htmx %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,10 +10,12 @@
 
   <link rel="stylesheet" href="{% static 'base/css/reset.css' %}">
 
+  {% htmx_script %}
+
   {% block extra_css %}
   {% endblock %}
 </head>
-<body>
+<body hx-headers='{"x-csrftoken": "{{ csrf_token }}"}'>
   {% block body %}
   {% endblock %}
 

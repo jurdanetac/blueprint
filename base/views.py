@@ -11,6 +11,8 @@ def index(request):
         todo_form = TodoForm(request.POST)
         new_todo = todo_form.save()
         print(new_todo)
+        todos = Todo.objects.all()
+        return render(request, "base/partials/todo_list.html", {"todos": todos})
 
     todos = Todo.objects.all()
     todo_form = TodoForm()
