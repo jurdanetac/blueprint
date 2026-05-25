@@ -1,0 +1,16 @@
+body {
+  background-color: black;
+  color: white;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-grow {
+  flex: 1;
+}
+
+.text-center {
+  text-align: center;
+}

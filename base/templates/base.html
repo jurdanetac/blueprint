@@ -8,6 +8,9 @@
   <title>{% block title %}{% endblock %}</title>
 
   <link rel="stylesheet" href="{% static 'base/css/reset.css' %}">
+
+  {% block extra_css %}
+  {% endblock %}
 </head>
 <body>
   {% block body %}

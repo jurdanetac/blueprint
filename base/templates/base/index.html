@@ -3,11 +3,43 @@
 
 {% block title %} Hello templates {% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'base/css/index.css' %}">
+{% endblock %}
+
 {% block body %}
+<header class="text-center">
   <h1>Templates</h1>
   <time id="live-clock"></time>
+</header>
+
+<div class="flex">
+  <aside id="backlog">
+    <h3>Backlog</h3>
+  </aside>
+  
+  <main id="dashboard" class="flex-grow">
+    <h2>Dashboard</h2>
+
+    <ul>
+      {% for todo in todos %}
+      <li>{{ todo.task }}</li>
+      {% endfor %}
+    </ul>
+
+    <form action="{% url 'index'  %}" method="POST">
+      {% csrf_token %}
+      {{ todo_form }}
+      <input type="submit" />
+    </form>
+  </main>
+  
+  <aside id="upcoming">
+    <h3>Upcoming</h3>
+  </aside>
+</div>
 {% endblock %}
 
 {% block extra_js %}
-  <script src="{% static 'base/js/live_clock.js' %}"></script>
+<script src="{% static 'base/js/live_clock.js' %}"></script>
 {% endblock %}
