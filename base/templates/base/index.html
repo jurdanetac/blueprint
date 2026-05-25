@@ -27,7 +27,7 @@
       <form hx-post="{% url 'index'  %}" hx-target="#todo-list" hx-swap="outerHTML" hx-on::after-request="this.reset()">
         {% csrf_token %}
         {{ todo_form }}
-        <input type="submit" />
+        <input type="submit" autocomplete="off" />
       </form>
     </main>
 

@@ -1,1 +1,4 @@
-<li>{{ todo.task }}</li>
+<li id="todo-item-{{ todo.id }}">
+    {{ todo.task }} {{ " " }}
+    <button type="button" hx-post="{% url 'delete-todo' todo_id=todo.id %}" hx-target="#todo-item-{{ todo.id }}">Delete</button>
+</li>
