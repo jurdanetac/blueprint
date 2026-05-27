@@ -13,13 +13,19 @@
     <time id="live-clock"></time>
   </header>
 
-  <div class="flex">
-    <aside id="backlog">
-      <h3>Backlog</h3>
+  <div class="flex" style="gap: 10%;">
+    <aside id="navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li>&gt; <a href="#">Today</a></li>
+        <li>&gt; <a href="#">Backlog</a></li>
+        <li>&gt; <a href="#">Lists</a></li>
+        <li>&gt; <a href="#">Notes</a></li>
+      </ul>
     </aside>
 
-    <main id="dashboard" class="flex-grow">
-      <h2>Dashboard</h2>
+    <main id="active" class="flex-grow">
+      <h2>Active</h2>
 
     <!-- #todo-list -->
       {% include 'base/partials/todo_list.html' with todos=todos %}
@@ -31,8 +37,16 @@
       </form>
     </main>
 
-    <aside id="upcoming">
-      <h3>Upcoming</h3>
+    <aside id="context">
+      <section>
+        <h3>Calendar</h3>
+      </section>
+
+      <hr />
+
+      <section>
+        <h3>Overdue</h3>
+      </section>
     </aside>
   </div>
 {% endblock %}
