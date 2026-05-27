@@ -1,12 +1,13 @@
 from django.db import models
 
+
 # Source - https://stackoverflow.com/a/8016679
 class TimeStampedModel(models.Model):
-     created_at = models.DateTimeField(auto_now_add=True)
-     updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
-     class Meta:
-         abstract = True
+    class Meta:
+        abstract = True
 
 
 class Todo(TimeStampedModel):

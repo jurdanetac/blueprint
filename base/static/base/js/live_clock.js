@@ -1,5 +1,5 @@
 // Output: "May 24, 2026 at 17:51"
-const timeFormatter = new Intl.DateTimeFormat('en-US', { 
+const timeFormatter = new Intl.DateTimeFormat('en-US', {
   dateStyle: 'medium',
   timeStyle: 'short',
   hour12: false
