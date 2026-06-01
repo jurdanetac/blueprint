@@ -1,3 +1,6 @@
+from calendar import month
+from datetime import date
+
 from http import HTTPStatus
 
 from django.http import HttpResponse
@@ -24,15 +27,28 @@ def delete_todo(request, todo_id):
     return HttpResponse("", status=HTTPStatus.OK)
 
 
+def generate_month_calendar():
+    today = date.today()
+    current_year = today.year
+    current_month = today.month
+    cal = month(theyear=current_year, themonth=current_month)
+    return cal
+
+
 def index(request):
     if request.method == "POST":
         todo_form = TodoForm(request.POST)
         new_todo = todo_form.save()
-        print(new_todo)
         todos = Todo.objects.all()
         return render(request, "base/partials/todo_list.html", {"todos": todos})
 
     todos = Todo.objects.all()
     todo_form = TodoForm()
 
-    return render(request, "base/index.html", {"todo_form": todo_form, "todos": todos})
+    calendar = generate_month_calendar()
+
+    return render(
+        request,
+        "base/index.html",
+        {"todo_form": todo_form, "todos": todos, "calendar": calendar},
+    )

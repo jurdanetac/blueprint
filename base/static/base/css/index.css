@@ -14,3 +14,7 @@ body {
 .text-center {
   text-align: center;
 }
+
+.month-calendar {
+  font-family: monospace;
+}
