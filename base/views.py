@@ -5,7 +5,7 @@ from http import HTTPStatus
 
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
-from django.views.decorators.http import require_POST, require_http_methods
+from django.views.decorators.http import require_GET, require_POST, require_http_methods
 
 from base.forms import TodoForm
 from base.models import Todo
@@ -22,15 +22,14 @@ def generate_month_calendar():
 # Create your views here.
 
 
+@require_GET
 def index(request):
     calendar = generate_month_calendar()
-    todos = Todo.objects.all()
-    todo_form = TodoForm()
 
     return render(
         request,
         "base/index.html",
-        {"calendar": calendar, "todos": todos, "todo_form": todo_form},
+        {"calendar": calendar},
     )
 
 
@@ -57,3 +56,28 @@ def add_todo(request):
     todos = Todo.objects.all()
 
     return render(request, "base/partials/todo_list.html", {"todos": todos})
+
+
+@require_GET
+def today(request):
+    return HttpResponse("")
+
+
+@require_GET
+def backlog(request):
+    todos = Todo.objects.all()
+    todo_form = TodoForm()
+
+    return render(
+        request, "base/partials/backlog.html", {"todos": todos, "todo_form": todo_form}
+    )
+
+
+@require_GET
+def lists(request):
+    return HttpResponse("")
+
+
+@require_GET
+def notes(request):
+    return HttpResponse("")

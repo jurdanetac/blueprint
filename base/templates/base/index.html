@@ -18,23 +18,13 @@
       <h3>Navigation</h3>
       <ul>
         <li>&gt; <a href="#">Today</a></li>
-        <li>&gt; <a href="#">Backlog</a></li>
+        <li>&gt; <a hx-get="{% url 'backlog' %}" hx-target="#active" hx-swap="innerHTML">Backlog</a></li>
         <li>&gt; <a href="#">Lists</a></li>
         <li>&gt; <a href="#">Notes</a></li>
       </ul>
     </aside>
 
     <main id="active" class="flex-grow">
-      <h2>Active</h2>
-
-    <!-- #todo-list -->
-      {% include 'base/partials/todo_list.html' with todos=todos %}
-
-      <form hx-post="{% url 'add-todo'  %}" hx-target="#todo-list" hx-swap="outerHTML" hx-on::after-request="this.reset()">
-        {% csrf_token %}
-        {{ todo_form }}
-        <input type="submit" autocomplete="off" />
-      </form>
     </main>
 
     <aside id="context">

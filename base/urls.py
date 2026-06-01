@@ -5,6 +5,8 @@ from . import views
 urlpatterns = [
     # GET: Renders homepage
     path("", views.index, name="index"),
+    # GET: Renders backlog section
+    path("partials/backlog/", views.backlog, name="backlog"),
     # POST: Creates a todo item
     path("todos/add/", views.add_todo, name="add-todo"),
     # DELETE: Deletes a todo item
