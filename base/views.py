@@ -33,6 +33,21 @@ def index(request):
     )
 
 
+@require_GET
+def today(request):
+    return HttpResponse("")
+
+
+@require_GET
+def backlog(request):
+    todos = Todo.objects.all()
+    todo_form = TodoForm()
+
+    return render(
+        request, "base/partials/backlog.html", {"todos": todos, "todo_form": todo_form}
+    )
+
+
 @require_http_methods(["DELETE"])
 def delete_todo(request, todo_id):
     # Safely find the todo item or return a 404 if it doesn't exist
@@ -56,21 +71,6 @@ def add_todo(request):
     todos = Todo.objects.all()
 
     return render(request, "base/partials/todo_list.html", {"todos": todos})
-
-
-@require_GET
-def today(request):
-    return HttpResponse("")
-
-
-@require_GET
-def backlog(request):
-    todos = Todo.objects.all()
-    todo_form = TodoForm()
-
-    return render(
-        request, "base/partials/backlog.html", {"todos": todos, "todo_form": todo_form}
-    )
 
 
 @require_GET

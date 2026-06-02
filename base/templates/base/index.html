@@ -17,10 +17,10 @@
     <aside id="navigation">
       <h3>Navigation</h3>
       <ul>
-        <li>&gt; <a href="#">Today</a></li>
+        <li>&gt; <a hx-get="{% url 'today' %}" hx-target="#active" hx-swap="innerHTML">Today</a></li>
         <li>&gt; <a hx-get="{% url 'backlog' %}" hx-target="#active" hx-swap="innerHTML">Backlog</a></li>
-        <li>&gt; <a href="#">Lists</a></li>
-        <li>&gt; <a href="#">Notes</a></li>
+        <li>&gt; <a hx-get="{% url 'lists' %}" hx-target="#active" hx-swap="innerHTML">Lists</a></li>
+        <li>&gt; <a hx-get="{% url 'notes' %}" hx-target="#active" hx-swap="innerHTML">Notes</a></li>
       </ul>
     </aside>
 

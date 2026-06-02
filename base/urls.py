@@ -5,8 +5,11 @@ from . import views
 urlpatterns = [
     # GET: Renders homepage
     path("", views.index, name="index"),
-    # GET: Renders backlog section
+    # GET: Renders active section
     path("partials/backlog/", views.backlog, name="backlog"),
+    path("partials/today/", views.today, name="today"),
+    path("partials/lists/", views.lists, name="lists"),
+    path("partials/notes/", views.notes, name="notes"),
     # POST: Creates a todo item
     path("todos/add/", views.add_todo, name="add-todo"),
     # DELETE: Deletes a todo item
