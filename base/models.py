@@ -13,6 +13,6 @@ class TimeStampedModel(models.Model):
 class Todo(TimeStampedModel):
     # short length, use description for extended notes
     task = models.CharField(max_length=30)
+    due_on = models.DateField(blank=True, null=True)
     # description = models.CharField(max_length=255)
-    # due_on = models.DateTime()
     # completed = models.BooleanField()

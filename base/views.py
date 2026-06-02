@@ -40,7 +40,7 @@ def today(request):
 
 @require_GET
 def backlog(request):
-    todos = Todo.objects.all()
+    todos = Todo.objects.all().order_by("due_on")
     todo_form = TodoForm()
 
     return render(
@@ -68,7 +68,7 @@ def add_todo(request):
     todo_form.save()
 
     # Update todos to re-render the list
-    todos = Todo.objects.all()
+    todos = Todo.objects.all().order_by("due_on")
 
     return render(request, "base/partials/todo_list.html", {"todos": todos})
 

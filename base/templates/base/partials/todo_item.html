@@ -1,4 +1,4 @@
 <li id="todo-item-{{ todo.id }}">
-    {{ todo.task }} {{ " " }}
+    {% if todo.due_on %}[{{ todo.due_on|date:"F jS" }}]{% endif %} {{ todo.task }}
     <button type="button" hx-delete="{% url 'delete-todo' todo_id=todo.id %}" hx-target="#todo-item-{{ todo.id }}">Delete</button>
 </li>
