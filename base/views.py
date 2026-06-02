@@ -5,6 +5,7 @@ from http import HTTPStatus
 
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
+from django.utils import timezone
 from django.views.decorators.http import require_GET, require_POST, require_http_methods
 
 from base.forms import TodoForm
@@ -24,12 +25,15 @@ def generate_month_calendar():
 
 @require_GET
 def index(request):
+    now = timezone.now()
+
     calendar = generate_month_calendar()
+    todos = Todo.objects.filter(due_on__lt=now).order_by("due_on")
 
     return render(
         request,
         "base/index.html",
-        {"calendar": calendar},
+        {"calendar": calendar, "todos": todos},
     )
 
 
