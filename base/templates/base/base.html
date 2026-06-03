@@ -1,5 +1,4 @@
-{% load static %}
-{% load django_htmx %}
+{% load static django_htmx tailwind_tags %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,10 +9,12 @@
 
     <link rel="stylesheet" href="{% static 'base/css/reset.css' %}">
 
-    {% htmx_script %}
+    {% tailwind_css %}
 
     {% block extra_css %}
     {% endblock %}
+
+    {% htmx_script %}
   </head>
   <body hx-headers='{"x-csrftoken": "{{ csrf_token }}"}'>
     {% block body %}
