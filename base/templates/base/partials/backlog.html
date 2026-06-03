@@ -1,6 +1,8 @@
 <!-- #todo-list -->
 {% include 'base/partials/todo_list.html' with todos=todos %}
 
+<hr />
+
 <form hx-post="{% url 'add-todo'  %}" hx-target="#todo-list" hx-swap="outerHTML" hx-on::after-request="this.reset()">
   {% csrf_token %}
   {{ todo_form }}
