@@ -25,6 +25,8 @@
     </aside>
 
     <main id="active" class="flex-grow">
+      <!-- By default show Today section -->
+      {% include 'base/partials/today.html' with todos=today_todos %}
     </main>
 
     <aside id="context">
@@ -38,7 +40,7 @@
       <section>
         <h3>Overdue</h3>
         <ul>
-          {% for todo in todos %}
+          {% for todo in overdue_todos %}
             <li>! {{ todo.task }}</li>
           {% endfor %}
         </ul>

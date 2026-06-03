@@ -25,21 +25,31 @@ def generate_month_calendar():
 
 @require_GET
 def index(request):
-    now = timezone.now()
-
     calendar = generate_month_calendar()
-    todos = Todo.objects.filter(due_on__lt=now).order_by("due_on")
+
+    now = timezone.now()
+    today = now.date()
+    today_todos = Todo.objects.filter(due_on__lte=today).order_by("-due_on")
+    overdue_todos = Todo.objects.filter(due_on__lt=now).order_by("due_on")
 
     return render(
         request,
         "base/index.html",
-        {"calendar": calendar, "todos": todos},
+        {
+            "calendar": calendar,
+            "today_todos": today_todos,
+            "overdue_todos": overdue_todos,
+        },
     )
 
 
 @require_GET
 def today(request):
-    return HttpResponse("")
+    today = timezone.now().date()
+
+    todos = Todo.objects.filter(due_on__lte=today).order_by("-due_on")
+
+    return render(request, "base/partials/today.html", {"todos": todos})
 
 
 @require_GET
