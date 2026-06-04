@@ -3,17 +3,13 @@
 
 {% block title %}Hello templates{% endblock %}
 
-{% block extra_css %}
-  <link rel="stylesheet" href="{% static 'base/css/index.css' %}">
-{% endblock %}
-
 {% block body %}
   <header class="text-center">
     <h1>Templates</h1>
     <time id="live-clock"></time>
   </header>
 
-  <div class="flex" style="gap: 10%;">
+  <div class="flex gap-10">
     <aside id="navigation">
       <h3>Navigation</h3>
       <ul>
@@ -24,7 +20,7 @@
       </ul>
     </aside>
 
-    <main id="active" class="flex-grow">
+    <main id="active" class="grow">
       <!-- By default show Today section -->
       {% include 'base/partials/today.html' with todos=today_todos %}
     </main>
@@ -32,7 +28,7 @@
     <aside id="context">
       <section>
         <h3>Calendar</h3>
-        <pre class="month-calendar">{{ calendar }}</pre>
+        <pre>{{ calendar }}</pre>
       </section>
 
       <hr />
