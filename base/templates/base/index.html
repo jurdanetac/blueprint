@@ -10,13 +10,13 @@
   </header>
 
   <div class="flex gap-10">
-    <aside id="navigation">
+    <aside>
       <h3>Navigation</h3>
-      <ul>
-        <li>&gt; <a hx-get="{% url 'today' %}" hx-target="#active" hx-swap="innerHTML">Today</a></li>
-        <li>&gt; <a hx-get="{% url 'backlog' %}" hx-target="#active" hx-swap="innerHTML">Backlog</a></li>
-        <li>&gt; <a hx-get="{% url 'lists' %}" hx-target="#active" hx-swap="innerHTML">Lists</a></li>
-        <li>&gt; <a hx-get="{% url 'notes' %}" hx-target="#active" hx-swap="innerHTML">Notes</a></li>
+      <ul id="navigation-list">
+        <li>&gt; <a class="text-blue-400" hx-get="{% url 'today' %}" hx-target="#active" hx-swap="innerHTML">Today</a></li>
+        <li>&gt; <a class="text-slate-400" hx-get="{% url 'backlog' %}" hx-target="#active" hx-swap="innerHTML">Backlog</a></li>
+        <li>&gt; <a class="text-slate-400" hx-get="{% url 'lists' %}" hx-target="#active" hx-swap="innerHTML">Lists</a></li>
+        <li>&gt; <a class="text-slate-400" hx-get="{% url 'notes' %}" hx-target="#active" hx-swap="innerHTML">Notes</a></li>
       </ul>
     </aside>
 
@@ -25,7 +25,7 @@
       {% include 'base/partials/today.html' with todos=today_todos %}
     </main>
 
-    <aside id="context">
+    <aside>
       <section>
         <h3>Calendar</h3>
         <pre>{{ calendar }}</pre>
@@ -47,4 +47,33 @@
 
 {% block extra_js %}
   <script src="{% static 'base/js/live_clock.js' %}"></script>
+
+  <script>
+    const navigationListUl = document.getElementById("navigation-list");
+    const navigationListLi = navigationListUl.querySelectorAll("li");
+
+    navigationListLi.forEach((li) => {
+      const navigationAnchor = li.querySelector("a");
+
+      // Change the pressed link color
+      navigationAnchor.addEventListener("click", (event) => {
+        const activeLinkClassName = "text-blue-400"
+        const inactiveLinkClassName = "text-slate-400"
+
+        navigationAnchor.classList.remove(inactiveLinkClassName);
+        navigationAnchor.classList.add(activeLinkClassName);
+
+        // Change the other links color
+        navigationListLi.forEach((subLi) => {
+          // Check it's not the same li
+          if (subLi != li) {
+            // Get the link
+            const subLiNavigationAnchor = subLi.querySelector("a");
+            subLiNavigationAnchor.classList.remove(activeLinkClassName)
+            subLiNavigationAnchor.classList.add(inactiveLinkClassName)
+          }
+        });
+      })
+    });
+  </script>
 {% endblock %}
