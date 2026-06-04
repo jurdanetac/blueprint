@@ -69,32 +69,5 @@
       // Add the active class
       navigationAnchor.classList.replace(inactiveLinkClassName, activeLinkClassName);
     });
-
-    /*
-    const navigationListLi = navigationListUl.querySelectorAll("li");
-
-    navigationListLi.forEach((li) => {
-
-      // Change the pressed link color
-      navigationAnchor.addEventListener("click", (event) => {
-        const activeLinkClassName = "text-blue-400"
-        const inactiveLinkClassName = "text-slate-400"
-
-        navigationAnchor.classList.remove(inactiveLinkClassName);
-        navigationAnchor.classList.add(activeLinkClassName);
-
-        // Change the other links color
-        navigationListLi.forEach((subLi) => {
-          // Check it's not the same li
-          if (subLi != li) {
-            // Get the link
-            const subLiNavigationAnchor = subLi.querySelector("a");
-            subLiNavigationAnchor.classList.remove(activeLinkClassName)
-            subLiNavigationAnchor.classList.add(inactiveLinkClassName)
-          }
-        });
-      })
-    });
-    */
   </script>
 {% endblock %}
