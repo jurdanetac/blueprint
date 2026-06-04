@@ -1,15 +1,30 @@
 <!-- #todo-list -->
 {% include 'base/partials/todo_list.html' with todos=todos %}
 
-<hr />
+<hr class="my-5" />
 
 <form hx-post="{% url 'add-todo'  %}" hx-target="#todo-list" hx-swap="outerHTML" hx-on::after-request="this.reset()">
   {% csrf_token %}
-  {{ todo_form }}
 
-  <input
-    type="submit"
-    autocomplete="off"
-    class="bg-gray-100 hover:bg-gray-300 focus:ring-gray-300 px-3 py-1 text-sm font-medium rounded-md shadow-sm transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2"
-  />
+  <div class="flex content-center">
+    <div class="flex gap-2">
+      <div class="flex flex-col">
+        {{ todo_form.task.label_tag }}
+        {{ todo_form.task }}
+        {{ todo_form.errors }}
+      </div>
+
+      <div class="flex flex-col">
+        {{ todo_form.due_on.label_tag }}
+        {{ todo_form.due_on }}
+        {{ todo_form.errors }}
+      </div>
+
+      <input
+        type="submit"
+        autocomplete="off"
+        class="mt-auto bg-gray-100 hover:bg-gray-300 focus:ring-gray-300 px-3 py-1 text-sm font-medium rounded-md shadow-sm transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2"
+      />
+    </div>
+  </div>
 </form>

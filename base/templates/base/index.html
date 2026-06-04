@@ -4,13 +4,13 @@
 {% block title %}Blueprint{% endblock %}
 
 {% block body %}
-  <header class="text-center">
+  <header class="text-center p-2">
     <h1>Blueprint</h1>
     <time id="live-clock"></time>
   </header>
 
-  <div class="flex gap-10">
-    <aside>
+  <div class="flex gap-10 p-2">
+    <aside class="p-2">
       <h3>Navigation</h3>
       <ul id="navigation-list">
         <li>&gt; <a class="text-blue-400" hx-get="{% url 'today' %}" hx-target="#active" hx-swap="innerHTML">Today</a></li>
@@ -20,12 +20,12 @@
       </ul>
     </aside>
 
-    <main id="active" class="grow">
+    <main id="active" class="grow p-2">
       <!-- By default show Today section -->
       {% include 'base/partials/today.html' with todos=today_todos %}
     </main>
 
-    <aside>
+    <aside class="hidden md:block p-2">
       <section>
         <h3>Calendar</h3>
         <pre>{{ calendar }}</pre>
@@ -33,7 +33,7 @@
 
       <hr />
 
-      <section>
+      <section class="p-2">
         <h3>Overdue</h3>
         <ul>
           {% for todo in overdue_todos %}
