@@ -1,6 +1,42 @@
+{% comment %}
+The Apple UI Hierarchy
+When you open Apple's "Today" view, tasks are strictly categorized in this top-to-bottom order:
+
+1. ⚠️ The Overdue Bucket (Top of the screen, but distinct)
+Apple groups all overdue tasks together at the very top, but with a crucial visual modifier: The text turns bright red.
+
+The Logic: They force you to look at your mistakes first so you don't forget them, but they use color-coding (red text) to isolate them from your actual "Today" items.
+
+Internal Ordering: Overdue tasks are sorted Chronologically (oldest overdue task at the top, moving down to yesterday's tasks).
+
+2. 📅 Today's Pending Tasks (The Main Workspace)
+Immediately following the overdue section are today's active tasks.
+
+The Logic: These are sorted strictly by Due Time.
+
+Internal Ordering:
+
+Tasks assigned to a specific time (e.g., 9:00 AM, 2:00 PM) are ordered chronologically.
+
+Tasks that are set for "All Day" (no specific time) are lumped together either at the very top or very bottom of the Today section.
+
+3. ✅ Today's Completed Tasks (Hidden by Default)
+Apple treats completed tasks as historical archive data rather than active list items.
+
+The Logic: When you check a task off in the "Today" list, it stays there for a few seconds (so you get that dopamine hit), and then it fades away into a hidden view.
+
+Accessing them: There is a button at the top of the screen (the three dots ... menu) where a user can select "Show Completed". If turned on, completed tasks appear at the absolute bottom of the list, faded out with a strikethrough.
+{% endcomment %}
+
 <ul id="todo-list">
-  {% for todo in todos %}
-    {% include 'base/partials/todo_item.html' with todo=todo %}
+  {% for todo in overdue %}
+    {% include 'base/partials/todo_list_item.html' with todo=todo %}
+  {% endfor %}
+  {% for todo in pending %}
+    {% include 'base/partials/todo_list_item.html' with todo=todo %}
+  {% endfor %}
+  {% for todo in completed %}
+    {% include 'base/partials/todo_list_item.html' with todo=todo %}
   {% endfor %}
 </ul>
 

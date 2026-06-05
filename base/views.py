@@ -5,7 +5,6 @@ from http import HTTPStatus
 
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
-from django.utils import timezone
 from django.views.decorators.http import require_GET, require_POST, require_http_methods
 
 from base.forms import TodoForm
@@ -20,46 +19,64 @@ def generate_month_calendar():
     return cal
 
 
-# Create your views here.
+### ROUTES
 
 
 @require_GET
 def index(request):
-    calendar = generate_month_calendar()
+    context = {
+        "calendar": generate_month_calendar(),
+        "overdue_todos": Todo.objects.overdue(),
+        "today_pending_todos": Todo.objects.today_pending(),
+        "today_completed_todos": Todo.objects.today_completed(),
+    }
 
-    now = timezone.now()
-    today = now.date()
-    today_todos = Todo.objects.filter(due_on__lte=today).order_by("-due_on")
-    overdue_todos = Todo.objects.filter(due_on__lt=now).order_by("due_on")
-
-    return render(
-        request,
-        "base/index.html",
-        {
-            "calendar": calendar,
-            "today_todos": today_todos,
-            "overdue_todos": overdue_todos,
-        },
-    )
+    return render(request, "base/index.html", context)
 
 
 @require_GET
 def today(request):
-    today = timezone.now().date()
+    context = {
+        "overdue_todos": Todo.objects.overdue(),
+        "today_pending_todos": Todo.objects.today_pending(),
+        "today_completed_todos": Todo.objects.today_completed(),
+    }
 
-    todos = Todo.objects.filter(due_on__lte=today).order_by("-due_on")
-
-    return render(request, "base/partials/today.html", {"todos": todos})
+    return render(request, "base/partials/today.html", context)
 
 
 @require_GET
 def backlog(request):
-    todos = Todo.objects.all().order_by("due_on")
-    todo_form = TodoForm()
+    context = {
+        "pending_todos": Todo.objects.pending(),
+        "todo_form": TodoForm(),
+    }
 
-    return render(
-        request, "base/partials/backlog.html", {"todos": todos, "todo_form": todo_form}
-    )
+    return render(request, "base/partials/backlog.html", context)
+
+
+@require_GET
+def completed(request):
+    context = {"completed": Todo.objects.completed()}
+
+    return render(request, "base/partials/completed.html", context)
+
+
+@require_GET
+def scheduled(request):
+    context = {"scheduled": Todo.objects.scheduled()}
+
+    return render(request, "base/partials/scheduled.html", context)
+
+
+@require_GET
+def lists(request):
+    return HttpResponse("")
+
+
+@require_GET
+def notes(request):
+    return HttpResponse("")
 
 
 @require_POST
@@ -70,10 +87,12 @@ def add_todo(request):
     # Save it to the database
     todo_form.save()
 
-    # Update todos to re-render the list
-    todos = Todo.objects.all().order_by("due_on")
+    context = {
+        # Update todos to re-render the backlog
+        "pending": Todo.objects.pending()
+    }
 
-    return render(request, "base/partials/todo_list.html", {"todos": todos})
+    return render(request, "base/partials/todo_list.html", context)
 
 
 @require_http_methods(["DELETE"])
@@ -96,13 +115,3 @@ def check_todo(request, todo_id):
     todo.save()
 
     return HttpResponse("", status=HTTPStatus.OK)
-
-
-@require_GET
-def lists(request):
-    return HttpResponse("")
-
-
-@require_GET
-def notes(request):
-    return HttpResponse("")

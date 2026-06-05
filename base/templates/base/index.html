@@ -14,15 +14,18 @@
       <h3>Navigation</h3>
       <ul id="navigation-list">
         <li>&gt; <a class="text-blue-400" hx-get="{% url 'today' %}" hx-target="#active" hx-swap="innerHTML">Today</a></li>
+        <li>&gt; <a class="text-slate-400" hx-get="{% url 'scheduled' %}" hx-target="#active" hx-swap="innerHTML">Scheduled</a></li>
         <li>&gt; <a class="text-slate-400" hx-get="{% url 'backlog' %}" hx-target="#active" hx-swap="innerHTML">Backlog</a></li>
-        <li>&gt; <a class="text-slate-400" hx-get="{% url 'lists' %}" hx-target="#active" hx-swap="innerHTML">Lists</a></li>
-        <li>&gt; <a class="text-slate-400" hx-get="{% url 'notes' %}" hx-target="#active" hx-swap="innerHTML">Notes</a></li>
+        <li>&gt; <a class="text-slate-400" hx-get="{% url 'completed' %}" hx-target="#active" hx-swap="innerHTML">Completed</a></li>
+        <li>&gt; <a class="text-slate-400" hx-get="#" hx-target="#" hx-swap="innerHTML">Logbook</a></li>
+        <li>&gt; <a class="text-slate-400" hx-get="#" hx-target="#" hx-swap="innerHTML">Lists</a></li>
+        <li>&gt; <a class="text-slate-400" hx-get="#" hx-target="#" hx-swap="innerHTML">Notes</a></li>
       </ul>
     </aside>
 
     <main id="active" class="grow p-2">
       <!-- By default show Today section -->
-      {% include 'base/partials/today.html' with todos=today_todos %}
+      {% include 'base/partials/today.html' with overdue=overdue_todos pending=today_pending_todos completed=today_completed_todos %}
     </main>
 
     <aside class="hidden md:block p-2">

@@ -6,8 +6,10 @@ urlpatterns = [
     # GET: Renders homepage
     path("", views.index, name="index"),
     # GET: Renders active section
-    path("partials/backlog/", views.backlog, name="backlog"),
     path("partials/today/", views.today, name="today"),
+    path("partials/backlog/", views.backlog, name="backlog"),
+    path("partials/scheduled/", views.scheduled, name="scheduled"),
+    path("partials/completed/", views.completed, name="completed"),
     path("partials/lists/", views.lists, name="lists"),
     path("partials/notes/", views.notes, name="notes"),
     # POST: Creates a todo item
