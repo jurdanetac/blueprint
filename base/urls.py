@@ -14,6 +14,8 @@ urlpatterns = [
     path("todos/add/", views.add_todo, name="add-todo"),
     # DELETE: Deletes a todo item
     path("todos/<int:todo_id>/delete/", views.delete_todo, name="delete-todo"),
+    # PATCH: Marks a todo item as completed
+    path("todos/<int:todo_id>/check/", views.check_todo, name="check-todo"),
     # PUT: Updates a todo item
     # path("todos/<int:todo_id>/edit/", views.edit_todo, name="edit-todo"),
 ]

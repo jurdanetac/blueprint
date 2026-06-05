@@ -62,17 +62,6 @@ def backlog(request):
     )
 
 
-@require_http_methods(["DELETE"])
-def delete_todo(request, todo_id):
-    # Safely find the todo item or return a 404 if it doesn't exist
-    todo = get_object_or_404(Todo, id=todo_id)
-
-    # Delete the todo from the database
-    todo.delete()
-
-    return HttpResponse("", status=HTTPStatus.OK)
-
-
 @require_POST
 def add_todo(request):
     # Create form from the received POST
@@ -85,6 +74,28 @@ def add_todo(request):
     todos = Todo.objects.all().order_by("due_on")
 
     return render(request, "base/partials/todo_list.html", {"todos": todos})
+
+
+@require_http_methods(["DELETE"])
+def delete_todo(request, todo_id):
+    # Safely find the todo item or return a 404 if it doesn't exist
+    todo = get_object_or_404(Todo, id=todo_id)
+
+    # Delete the todo from the database
+    todo.delete()
+
+    return HttpResponse("", status=HTTPStatus.OK)
+
+
+@require_http_methods(["PATCH"])
+def check_todo(request, todo_id):
+    # Safely find the todo item or return a 404 if it doesn't exist
+    todo = get_object_or_404(Todo, id=todo_id)
+
+    todo.completed = True
+    todo.save()
+
+    return HttpResponse("", status=HTTPStatus.OK)
 
 
 @require_GET

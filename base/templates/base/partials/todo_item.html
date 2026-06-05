@@ -18,8 +18,8 @@
             <button
                 type="button"
                 class="{{ btn_base }} bg-green-600 hover:bg-green-700 focus:ring-green-500"
-                hx-patch=""
-                hx-target=""
+                hx-patch="{% url 'check-todo' todo_id=todo.id %}"
+                hx-target="#todo-item-{{ todo.id }}"
             >
                 Check
             </button>
