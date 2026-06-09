@@ -12,6 +12,7 @@ urlpatterns = [
     path("partials/completed/", views.completed, name="completed"),
     path("partials/lists/", views.lists, name="lists"),
     path("partials/notes/", views.notes, name="notes"),
+    path("partials/minical/", views.get_minical_json, name="minical"),
     # POST: Creates a todo item
     path("todos/add/", views.add_todo, name="add-todo"),
     # DELETE: Deletes a todo item

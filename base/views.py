@@ -3,7 +3,7 @@ from datetime import date
 
 from http import HTTPStatus
 
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.http import require_GET, require_POST, require_http_methods
 
@@ -17,6 +17,45 @@ def generate_month_calendar():
     current_month = today.month
     cal = month(theyear=current_year, themonth=current_month)
     return cal
+
+
+@require_GET
+def get_minical_json(request):
+    cal = generate_month_calendar()
+    splitted_cal = cal.split()
+
+    month = splitted_cal[0]
+    year = int(splitted_cal[1])
+    weekdays = splitted_cal[2:9]
+    days = splitted_cal[9:]
+    days = [int(day) for day in days]
+
+    weeks = [
+        days[0:7],
+        days[7:14],
+        days[14:21],
+        days[21:28],
+    ]
+
+    # check if not february
+    if len(days) > 28:
+        weeks.append(days[28:])
+
+    context = {
+        "year": year,
+        "month": month,
+        "weeks": weeks,
+    }
+
+    return render(request, "base/partials/minical.html", context)
+
+    return JsonResponse(
+        {
+            "year": year,
+            "month": month,
+            "weeks": weeks,
+        }
+    )
 
 
 ### ROUTES
