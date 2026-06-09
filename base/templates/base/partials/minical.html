@@ -1,35 +1,25 @@
-{% load static tailwind_tags %}
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        {% tailwind_css %}
-    </head>
-    <body>
-        <table class="text-center border-1">
-            <caption>{{ month }} {{ year }}</caption>
-            <thead>
-                <tr class="font-bold text-white bg-red-600">
-                    <td>Mo</td>
-                    <td>Tu</td>
-                    <td>We</td>
-                    <td>Th</td>
-                    <td>Fr</td>
-                    <td>Sa</td>
-                    <td>Su</td>
-                </tr>
-            </thead>
-            {% for week in weeks %}
-                <tr>
-                    {% for day in week %}
-                        <td class="p-1 border-1 hover:bg-gray-300">
-                            {{ day }}
-                        </td>
-                    {% endfor %}
-                </tr>
+<table class="text-center border-1">
+    {% comment %}
+    <caption>{{ calendar.month }} {{ calendar.year }}</caption>
+    {% endcomment %}
+    <thead>
+        <tr class="font-bold text-white bg-red-600">
+            <td>Mo</td>
+            <td>Tu</td>
+            <td>We</td>
+            <td>Th</td>
+            <td>Fr</td>
+            <td>Sa</td>
+            <td>Su</td>
+        </tr>
+    </thead>
+    {% for week in calendar.weeks %}
+        <tr>
+            {% for day in week %}
+                <td class="p-1 border-1 hover:bg-gray-300">
+                    {{ day }}
+                </td>
             {% endfor %}
-        </table>
-    </body>
-</html>
+        </tr>
+    {% endfor %}
+</table>

@@ -16,46 +16,31 @@ def generate_month_calendar():
     current_year = today.year
     current_month = today.month
     cal = month(theyear=current_year, themonth=current_month)
-    return cal
 
-
-@require_GET
-def get_minical_json(request):
-    cal = generate_month_calendar()
     splitted_cal = cal.split()
 
-    month = splitted_cal[0]
-    year = int(splitted_cal[1])
-    weekdays = splitted_cal[2:9]
-    days = splitted_cal[9:]
-    days = [int(day) for day in days]
+    calendar_month = splitted_cal[0]
+    calendar_year = int(splitted_cal[1])
+    calendar_weekdays = splitted_cal[2:9]
+    calendar_days = splitted_cal[9:]
+    calendar_days = [int(day) for day in calendar_days]
 
-    weeks = [
-        days[0:7],
-        days[7:14],
-        days[14:21],
-        days[21:28],
+    calendar_weeks = [
+        calendar_days[0:7],
+        calendar_days[7:14],
+        calendar_days[14:21],
+        calendar_days[21:28],
     ]
 
     # check if not february
-    if len(days) > 28:
-        weeks.append(days[28:])
+    if len(calendar_days) > 28:
+        calendar_weeks.append(calendar_days[28:])
 
-    context = {
-        "year": year,
-        "month": month,
-        "weeks": weeks,
+    return {
+        "year": calendar_year,
+        "month": calendar_month,
+        "weeks": calendar_weeks,
     }
-
-    return render(request, "base/partials/minical.html", context)
-
-    return JsonResponse(
-        {
-            "year": year,
-            "month": month,
-            "weeks": weeks,
-        }
-    )
 
 
 ### ROUTES
